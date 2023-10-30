@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#echos infinity and beyond
+i=0
+filename="/tmp/my_process"
+while [ "$i" -eq 0 ]; do
+	if [ -e "$filename" ]; then
+		sudo sh -c "echo 'I am alive' >> /tmp/my_process"
+	else
+		sudo sh -c "echo 'I am alive' >> /tmp/my_process"
+	fi
+	sleep 2
+done
