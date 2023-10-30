@@ -33,7 +33,7 @@ rm /var/run/my_process.pid
 
 echo $! > /var/run/my_process.pid
 
-echo “manage_my_process restarted”
+echo "manage_my_process restarted"
 
 ;;
 
