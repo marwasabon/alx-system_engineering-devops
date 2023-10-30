@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-#To provide information about school file
+# To provide information about school file
 
-file="school"
+file="./school"
 
 if [ -e $file ]; then
     echo "school file exists"
