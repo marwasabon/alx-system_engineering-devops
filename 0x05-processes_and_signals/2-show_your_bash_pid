@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 #displays bash pid
 
-echo $BASHPID
+ps auxf | grep bash
