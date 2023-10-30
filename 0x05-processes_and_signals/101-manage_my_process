@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+#command to display the processes in a tree like structure
+
+# Function to start the manage_my_process program
+start() {
+    # Checking if the process is already running
+    if [ -f /var/run/my_process.pid ]; then
+        echo "manage_my_process is already running"
+    else
+        # Start the program in the background
+        /path/to/manage_my_process >/tmp/my_process &
+        
+        # Get the PID of the background process
+        pid=$!
+        
+        # Write the PID to the PID file
+        echo $pid > /var/run/my_process.pid
+        
+        echo "manage_my_process started"
+    fi
+}
+
+# Function to stop the manage_my_process program
+stop() {
+    # Check if the process is running
+    if [ -f /var/run/my_process.pid ]; then
+        # Get the PID from the PID file
+        pid=$(cat /var/run/my_process.pid)
+        
+        # Kill the process
+        kill $pid
+        
+        # Delete the PID file
+        rm /var/run/my_process.pid
+        
+        echo "manage_my_process stopped"
+    else
+        echo "manage_my_process is not running"
+    fi
+}
+
+# Function to restart the manage_my_process program
+restart() {
+    stop
+    start
+    
+    echo "manage_my_process restarted"
+}
+
+# Main script logic
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        restart
+        ;;
+    *)
+        echo "Usage: manage_my_process {start|stop|restart}"
+        ;;
+esac
