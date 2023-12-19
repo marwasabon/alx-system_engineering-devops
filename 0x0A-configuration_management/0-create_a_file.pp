@@ -7,7 +7,7 @@ user { 'www-data':
 }
 
 # create a file
-file { '/tmp/holberton':
+file { '/tmp/school':
     ensure  => 'present',
     content => 'I love Puppet',
     mode    => '0744',
