@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# this is installing
 sudo apt update -y
 apt-get install nginx -y
 DEST="/etc/nginx/sites-available"
