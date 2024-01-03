@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 # Rediraction
-./1-install_nginx_web_server
+sudo su
+apt -y update
+apt-get -y install nginx
+ufw allow 'Nginx HTTP'     
+echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html      
+service nginx start
+
 DEST="/etc/nginx"
 url="https://www.youtube.com/watch?v=QH2-TGUlwu4"
 LINE="location /redirect_me {\nreturn 301 $url;\n}"
