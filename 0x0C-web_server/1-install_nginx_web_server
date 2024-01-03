@@ -2,22 +2,6 @@
 # this is installing
 sudo apt update -y
 apt-get install nginx -y
-DEST="/etc/nginx/sites-available"
-Static="/var/www/default"
-printf "server  {
-	listen 80 default_server;
-	listen [::]:80 default_server;
-	server_name localhost;
-	root $Static;
-
-	location / {
-		index index.html index.html;
-	}
-
-
-}
-" > "$DEST/default"
-mkdir -p $Static
-echo "Hello World" > $Static/index.html
+sudo sed -i 's/listen\s*80;/listen 80 default_server;/g' /etc/nginx/sites-available/default
+echo "Hello World!" | sudo tee /var/www/html/index.html
 service nginx restart
-
