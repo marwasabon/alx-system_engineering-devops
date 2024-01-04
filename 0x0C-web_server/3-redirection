@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Rediraction
-sudo ./1-install_nginx_web_server
+sudo apt update
+sudo apt -y install nginx
 DEST="/etc/nginx/sites-available/default"
 url="https://www.youtube.com/watch?v=QH2-TGUlwu4"
 # Create the new location block
