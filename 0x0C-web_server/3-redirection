@@ -1,14 +1,21 @@
 #!/usr/bin/env bash
 # Rediraction
-#sudo su
-#apt -y update
-#apt-get -y install nginx
-#ufw allow 'Nginx HTTP'     
-#echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html      
-#service nginx start
-./1-install_nginx_web_server
-DEST="/etc/nginx"
+sudo apt -y update
+sudo apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
+echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html
+sudo service nginx start
+DEST="/etc/nginx/sites-enabled/default"
 url="https://www.youtube.com/watch?v=QH2-TGUlwu4"
-LINE="location /redirect_me {\nreturn 301 $url;\n}"
-sudo sed -i "\$i $LINE" $DEST/sites-available/default
+# Create the new location block
+NEW_LOCATION="location /redirect_me {"
+NEW_LOCATION+="\n# First attempt to serve request as file, then"
+NEW_LOCATION+="\n# as directory, then fall back to displaying a 404."
+NEW_LOCATION+="\nreturn 301 $url;"
+NEW_LOCATION+="\n}"
+# Use sed to replace the existing location block with the new one
+#sudo sed -i '/location \/ {/,/}/d' $DEST
+#sudo sed -i "\$i $NEW_LOCATION" $DEST
+sudo sed -i '/location \/ {/,/}/d' $DEST
+sudo sed -i "/server {/a $NEW_LOCATION" $DEST
 sudo service nginx restart
