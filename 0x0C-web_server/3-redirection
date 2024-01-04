@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Rediraction
 sudo ./1-install_nginx_web_server
-DEST="/etc/nginx/sites-enabled/default"
+DEST="/etc/nginx/sites-available/default"
 url="https://www.youtube.com/watch?v=QH2-TGUlwu4"
 # Create the new location block
 NEW_LOCATION="location /redirect_me {"
@@ -12,9 +12,4 @@ NEW_LOCATION+="\n}"
 #sudo sed -i "\$i $NEW_LOCATION" $DEST
 sudo sed -i '/location \/ {/,/}/d' $DEST
 sudo sed -i "/server {/a $NEW_LOCATION" $DEST
-if [ "$(pgrep -c nginx)" -le 0 ]; then
-	sudo service nginx start
-else
-	sudo service nginx restart
-fi
-#sudo service nginx restart
+sudo service nginx restart
