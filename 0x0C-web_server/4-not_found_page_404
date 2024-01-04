@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Not found page 404
+./3-redirection
+DEST="/etc/nginx"
+src="/var/www/default"
+echo "Ceci n'est pas une page" > $src/page_not_found.html
+sed -i '/root.*;/a error_page 404 /page_not_found.html;' $DEST/sites-enabled/default
+service nginx restart
+
