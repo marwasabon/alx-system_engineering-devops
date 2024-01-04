@@ -3,7 +3,10 @@
 sudo ./3-redirection
 DEST="/etc/nginx"
 sudo chmod -R 755 /var/www/html
-src="/var/www/html"
-sudo echo "Ceci n'est pas une page" | sudo tee $src/page_not_found.html  > /dev/null
+SRC="/var/www/html"
+PAGE_NOT_FOUND_CONTENT="Ceci n'est pas une page"
+
+# Create the custom 404 page
+sudo bash -c "echo '$PAGE_NOT_FOUND_CONTENT' > $SRC/page_not_found.html"
 sudo sed -i '/root.*;/a error_page 404 /page_not_found.html;' $DEST/sites-available/default
 sudo service nginx restart
