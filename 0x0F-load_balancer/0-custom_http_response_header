@@ -3,6 +3,8 @@
 sudo service nginx restart
 sudo apt-get update
 sudo apt-get install nginx -y
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chmod -R 755 /var/www
 DEST="/etc/nginx"
 src="/var/www/default"
 Static="/var/www/default"
