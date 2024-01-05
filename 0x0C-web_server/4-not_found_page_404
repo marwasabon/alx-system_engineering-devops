@@ -7,7 +7,7 @@ sudo chown -R "$USER":"$USER" /var/www/html
 sudo chown -R "$USER":"$USER" /usr/share/nginx/html
 
 echo 'Hello World!' > /var/www/html/index.html
-echo "Ceci n'est pas une page" > /usr/share/nginx/html/this_404.html
+sudo echo "Ceci n'est pas une page" > /usr/share/nginx/html/this_404.html
 # Create the custom 404 page
 new_string="server_name _;\n\trewrite ^\/redirect_me https:\/\/www.youtube.com permanent;"
 sudo sed -i "s/server_name _;/$new_string/" /etc/nginx/sites-available/default
