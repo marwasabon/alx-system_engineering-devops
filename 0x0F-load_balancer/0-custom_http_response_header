@@ -2,31 +2,18 @@
 # configure web-02 to be identical to web-01.
 sudo service nginx restart
 sudo apt-get update
-sudo apt-get install nginx -y
-sudo chown -R "$USER":"$USER" /var/www/html
-sudo chmod -R 755 /var/www
-DEST="/etc/nginx"
-src="/var/www/html"
-Static="/var/www/html"
-url="https://www.youtube.com/watch?v=QH2-TGUlwu4"
-LINE="location /redirect_me {\nreturn 301 $url;\n}"
+cat <<EOF > /etc/nginx/conf.d/custom_header.conf
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
 
+    server_name _;
 
-printf "server  {
-	listen 80 default_server;
-	listen [::]:80 default_server;
-	server_name localhost;
-	root $Static;
-
-	location / {
-		index index.html index.html;
-	}
-}" > "$DEST/sites-available/default"
-mkdir -p $Static
-echo "Hello World!" > $Static/index.html
-sudo sed -i "\$i $LINE" $DEST/sites-available/default
-echo "Ceci n'est pas une page" > $src/page_not_found.html
-sudo sed -i '/root.*;/a error_page 404 /page_not_found.html;' $DEST/sites-available/default
-# shellcheck disable=SC2059
-sudo sed -i "/http {.*/aadd_header X-Served-By $hostname;" $DEST/nginx.conf
+    location / {
+        add_header X-Served-By $hostname;
+        root /var/www/html;
+        index index.html index.htm;
+    }
+}
+EOF
 sudo service nginx restart
