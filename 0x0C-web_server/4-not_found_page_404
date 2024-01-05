@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 # Not found page 404
-sudo ./3-redirection
 sudo chown -R "$USER":"$USER" /var/www/html
 sudo chown -R "$USER":"$USER" /usr/share/nginx/html
 
