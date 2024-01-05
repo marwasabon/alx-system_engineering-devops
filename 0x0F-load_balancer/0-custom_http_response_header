@@ -1,19 +1,21 @@
 #!/usr/bin/env bash
 # configure web-02 to be identical to web-01.
-sudo service nginx restart
-sudo apt-get update
-cat <<EOF > /etc/nginx/conf.d/custom_header.conf
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
+sudo apt update
+sudo apt -y install nginx
 
-    server_name _;
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chown -R "$USER":"$USER" /usr/share/nginx/html
 
-    location / {
-        add_header X-Served-By $hostname;
-        root /var/www/html;
-        index index.html index.htm;
-    }
-}
-EOF
+echo 'Hello World!' > /var/www/html/index.html
+echo "Ceci n'est pas une page" > /usr/share/nginx/html/this_404.html
+# Create the custom 404 page
+new_string="server_name _;\n\trewrite ^\/redirect_me https:\/\/www.youtube.com permanent;"
+sudo sed -i "s/server_name _;/$new_string/" /etc/nginx/sites-available/default
+#Appending the error config after the above new_string.
+error_config_string="\terror_page 404 \/this_404.html;\n\tlocation = \/this_404.html {\n\t\troot \/usr\/share\/nginx\/html;\n\t\tinternal;\n\t}"
+sudo sed -i "s/listen 80 default_server;/listen 80 default_server;\n$error_config_string/" /etc/nginx/sites-available/default
+HOSTNAME=$(hostname)
+sudo sed -i "/http {.*/aadd_header X-Served-By $HOSTNAME;" /etc/nginx/nginx.conf
+sudo chown -R root:root /var/www/html
+sudo chown -R root:root /usr/share/nginx/html
 sudo service nginx restart
