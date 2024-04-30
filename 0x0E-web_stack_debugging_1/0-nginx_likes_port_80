@@ -2,4 +2,4 @@
 # fixes the server
 sudo rm /etc/nginx/sites-enabled/default
 ln -s /etc/nginx/sites-avaialable/default /etc/nginx/sites-enabled
-service nginx restart
+sudo service nginx restart
