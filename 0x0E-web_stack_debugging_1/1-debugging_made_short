@@ -4,4 +4,3 @@
 sudo apt-get -y update
 sudo apt-get -y install nginx
 sudo service nginx start
-kill "$(pgrep 'nginx' | head -1)"
