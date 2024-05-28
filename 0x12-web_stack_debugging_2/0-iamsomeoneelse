@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# bash script to login as user
+sudo -H -u "$1" bash -c whoami
+
