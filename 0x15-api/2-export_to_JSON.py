@@ -23,9 +23,9 @@ if __name__ == "__main__":
             usr_task = {usrId: []}
             for task in tasks:
                 t_d = dict(
-                        username=user_req["username"],
                         task=task["title"],
-                        completed=task["completed"]
+                        completed=task["completed"],
+                        username=user_req["username"],
                         )
                 usr_task[usrId].append(t_d)
                 json.dump(usr_task, f)
