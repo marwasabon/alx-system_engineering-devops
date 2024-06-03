@@ -18,14 +18,16 @@ if __name__ == "__main__":
                 "{ep}/todos".format(ep=entrypoint),
                 params={"id": usrId}
                 ).json()
+        usr_task = {usrId: []}  # Initialize the user tasks dictionary outside the loop
+
+        for task in tasks:
+            t_d = {
+                "task": task["title"],
+                "completed": task["completed"],
+                "username": user_req["username"],
+            }
+            usr_task[usrId].append(t_d)
+
         with open("{}.json".format(usrId), "w+") as f:
-            # someway to get the id
-            usr_task = {usrId: []}
-            for task in tasks:
-                t_d = {
-                        task = task["title"],
-                        completed = task["completed"],
-                        username = user_req["username"],
-                        }
-                usr_task[usrId].append(t_d)
-                json.dump(usr_task, f)
+            json.dump(usr_task, f)  # Move this outside the loop to store all tasks for the user
+
