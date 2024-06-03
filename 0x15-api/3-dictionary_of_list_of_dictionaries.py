@@ -10,19 +10,23 @@ if __name__ == "__main__":
     users = requests.get("{}/users".format(entrypoint)).json()
     tasks = requests.get("{}/todos".format(entrypoint)).json()
 
+    collected_tasks = {}
+
+    for usr in users:
+        user_id = usr["id"]
+        usr_task = []
+
+        user_tasks = [t for t in tasks if t['userId'] == user_id]
+
+        for task in user_tasks:
+            user_task = {
+                "username": usr["username"],
+                "task": task["title"],
+                "completed": task["completed"]
+            }
+            usr_task.append(user_task)
+
+        collected_tasks[user_id] = usr_task
+
     with open("todo_all_employees.json", "w+") as f:
-        collected_tasks = dict()
-        for usr in users:
-            usr_id = usr["id"]
-            usr_task = {usr_id: []}
-            user_tasks = [t for t in tasks if t['userId'] == usr_id]
-            for t in user_tasks:
-                task = dict(
-                        username=usr["username"],
-                        task=t["title"],
-                        completed=t["completed"]
-                        )
-                tasks.remove(t)
-                usr_task[usr_id].append(task)
-                collected_tasks.update(usr_task)
-            json.dump(collected_tasks, f)
+        json.dump(collected_tasks, f, indent=2)
