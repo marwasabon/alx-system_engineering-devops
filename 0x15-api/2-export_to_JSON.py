@@ -7,7 +7,6 @@ if __name__ == "__main__":
     import json
     import requests
     import sys
-    import csv
 
     entrypoint = "https://jsonplaceholder.typicode.com"
     usrId = sys.argv[1]
