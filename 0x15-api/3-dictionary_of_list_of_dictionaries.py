@@ -13,9 +13,9 @@ if __name__ == "__main__":
     with open("todo_all_employees.json", "w+") as f:
         collected_tasks = dict()
         for usr in users:
-            usr_id = usr["userId"]
+            usr_id = usr["id"]
             usr_task = {usr_id: []}
-            for t in [t for t in tasks if t['userId'] == usr_id]:
+            for t in [t for t in tasks if t['id'] == usr_id]:
                 task = dict(
                         username=usr["username"],
                         task=t["title"],
