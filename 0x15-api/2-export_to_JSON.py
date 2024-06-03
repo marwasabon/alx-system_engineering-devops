@@ -16,7 +16,7 @@ if __name__ == "__main__":
     if user_req:
         tasks = requests.get(
                 "{ep}/todos".format(ep=entrypoint),
-                params={"userId": usrId}
+                params={"id": usrId}
                 ).json()
         with open("{}.json".format(usrId), "w+") as f:
             # someway to get the id
