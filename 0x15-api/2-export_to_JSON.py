@@ -26,6 +26,6 @@ if __name__ == "__main__":
                         task=task["title"],
                         completed=task["completed"],
                         username=user_req["username"],
-                        )
+                        
                 usr_task[usrId].append(t_d)
-                json.dump(usr_task, f)
+                json.dump(usr_task, f))
