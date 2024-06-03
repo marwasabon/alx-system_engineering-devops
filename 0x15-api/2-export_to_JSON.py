@@ -16,9 +16,9 @@ if __name__ == "__main__":
     if user_req:
         tasks = requests.get(
                 "{ep}/todos".format(ep=entrypoint),
-                params={"id": usrId}
+                params={"userId": usrId}
                 ).json()
-        usr_task = {usrId: []}  # Initialize the user tasks dictionary outside the loop
+        usr_task = {usrId: []}
 
         for task in tasks:
             t_d = {
@@ -29,5 +29,4 @@ if __name__ == "__main__":
             usr_task[usrId].append(t_d)
 
         with open("{}.json".format(usrId), "w+") as f:
-            json.dump(usr_task, f)  # Move this outside the loop to store all tasks for the user
-
+            json.dump(usr_task, f)
