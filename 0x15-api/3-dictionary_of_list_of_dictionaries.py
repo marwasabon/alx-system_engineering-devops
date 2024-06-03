@@ -15,7 +15,8 @@ if __name__ == "__main__":
         for usr in users:
             usr_id = usr["id"]
             usr_task = {usr_id: []}
-            for t in [t for t in tasks if t['userId'] == usr_id]:
+            user_tasks = [t for t in tasks if t['userId'] == usr_id]
+            for t in user_tasks:
                 task = dict(
                         username=usr["username"],
                         task=t["title"],
