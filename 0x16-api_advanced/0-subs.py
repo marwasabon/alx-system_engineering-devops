@@ -8,8 +8,9 @@ def number_of_subscribers(subreddit):
     """Function that returns  the number of users subscribed to reddit"""
     try:
         url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
-        req = requests.get(url)
-        return req.json().get('data').get('subscribers', 0)
+        headers = {'User-Agent': 'Mozilla/5.0'}
+        request = requests.get(url, headers)
+        return request.json().get('data').get('subscribers', 0)
     except Exception as e:
         return 0
 
