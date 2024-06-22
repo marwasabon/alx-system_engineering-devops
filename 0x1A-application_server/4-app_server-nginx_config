@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#shutting and relaoding Gunicorn
+kill -HUP $(pgrep gunicorn)
