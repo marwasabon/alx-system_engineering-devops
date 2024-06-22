@@ -1,11 +1,13 @@
 # Building on your work in the previous tasks, 
 # configure Nginx to serve your page from the route /airbnb-onepage/
-server {
-       listen 80;
-       server_name 54.237.44.169;
-
-       location /airbnb-onepage {
-                include proxy_params;
-                proxy_pass http://127.0.0.1:5000;
-       }
+server  {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        server_name 0.0.0.0;
+        error_page 404 /page_not_found.html;
+        root /var/www/default;
+        location / {
+                proxy_pass http://0.0.0.0:5000;
+        }
 }
+
